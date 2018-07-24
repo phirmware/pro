@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+
+<head>
+        <!-- Required Meta Tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title> Bulkit :: Register</title>
+        <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+
+        <!--Core CSS -->
+        <link rel="stylesheet" href="assets/css/bulma.css">
+        <link rel="stylesheet" href="assets/css/app.css">
+        <link rel="stylesheet" href="assets/css/core_green.css">
+        <style>
+        body{
+            height:200vh;
+            background-color: #EFF4F7;
+            background-image: linear-gradient(141deg, #d0e0ec 0%, #f5f7fa 71%, #fff 100%);
+        }
+
+        </style>
+    </head>
+    <body>
+        <div class="pageloader"></div>
+        <div class="infraloader is-active"></div>        
+        <!-- Hero and nav -->
+        
+            
+            <nav class="navbar navbar-wrapper navbar-default navbar-fade is-semisolid">
+                <div class="container">
+                    <!-- Brand -->
+                    <div class="navbar-brand">
+                        <a class="navbar-item" href="/">
+                            <img src="assets/images/logos/bulkit-green.svg" alt="">
+                        </a>
+            
+                       
+            
+                        <!-- Responsive toggle -->
+                        <div class="custom-burger" data-target="">
+                            <a id="" class="responsive-btn" href="javascript:void(0);">
+                                <span class="menu-toggle">	
+                                    <span class="icon-box-toggle"> 	
+                                        <span class="rotate">
+                                            <i class="icon-line-top"></i>
+                                            <i class="icon-line-center"></i>
+                                            <i class="icon-line-bottom"></i> 
+                                        </span>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                        <!-- /Responsive toggle -->
+                    </div>
+            
+                    <!-- Navbar menu -->
+                    <div class="navbar-menu">
+                        <!-- Navbar Start -->
+                        <div class="navbar-start">
+            
+                        </div>
+            
+                        <!-- Navbar end -->
+                        <div class="navbar-end">
+                            <!-- Signup button -->
+                            <div class="navbar-item">
+                                <a id="#signup-btn" href="/signup" class="button button-cta btn-outlined is-bold btn-align primary-btn raised">
+                                    Free Trial
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Hero image -->
+            <div id="main-hero" class="hero-body">
+                <div class="container has-text-centered">
+                    <div class="columns is-vcentered">
+                        <div class="column is-6 is-offset-3">
+                            <!-- Login form -->
+                            <div id="login-card" class="animated preFadeInLeft fadeInLeft">
+                                <div class="flex-card clean-login-card">
+                                    <h2>Register</h2>
+                                    <form action="/register" method="POST">
+                                        <div class="control-material is-primary">      
+                                            <input class="material-input" name="username" type="email" value="<%= user.username %>" required disabled>
+                                            <span class="material-highlight"></span>
+                                            <span class="bar"></span>
+                                            <label></label>
+                                        </div>
+                                        <div class="control-material is-primary">      
+                                            <input class="material-input" name="company" type="text" required>
+                                            <span class="material-highlight"></span>
+                                            <span class="bar"></span>
+                                            <label>Company</label>
+                                        </div>
+                                        <div class="control-material is-primary">      
+                                            <input class="material-input" name="service" type="text" required>
+                                            <span class="material-highlight"></span>
+                                            <span class="bar"></span>
+                                            <label>Service</label>
+                                        </div>
+                                        <div class="control-material is-primary">      
+                                            <input class="material-input" name="user" type="text" required>
+                                            <span class="material-highlight"></span>
+                                            <span class="bar"></span>
+                                            <label>Name</label>
+                                        </div>
+                                        <div class="control-material is-primary">      
+                                            <input class="material-input" name="phone" type="number" required>
+                                            <span class="material-highlight"></span>
+                                            <span class="bar"></span>
+                                            <label>Phone Number</label>
+                                        </div>
+                                        <div class="control-material is-primary">      
+                                            <input class="material-input" name="country" type="text" required>
+                                            <span class="material-highlight"></span>
+                                            <span class="bar"></span>
+                                            <label>Country</label>
+                                        </div>
+                                        <div class="control-material is-primary">      
+                                            <input class="material-input" name="location" type="text" required>
+                                            <span class="material-highlight"></span>
+                                            <span class="bar"></span>
+                                            <label>Location</label>
+                                        </div>
+                                        <div class="control-material is-primary">      
+                                            <input class="material-input" name="plan" type="text" required>
+                                            <span class="material-highlight"></span>
+                                            <span class="bar"></span>
+                                            <label>Plan</label>
+                                        </div>
+                                        <div class="control-material is-primary">      
+                                            <input class="material-input" name="category" type="text" required>
+                                            <span class="material-highlight"></span>
+                                            <span class="bar"></span>
+                                            <label>category</label>
+                                        </div>
+        
+                                        <div class="mt-20">
+                                            <button class="button button-cta btn-align primary-btn is-fullwidth raised no-lh">Register</button>
+                                        </div>
+                                    </form>
+                                </div>
+        
+                               
+                            </div>
+                            <!-- /Login form -->
+        
+                               
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Hero image -->
+        
+        
+       <script src="assets/js/app.js"></script>
+        
+        <!-- Bulkit js -->
+        <script src="assets/js/landingv1.js"></script>
+        <script src="assets/js/auth.js"></script>
+        <script src="assets/js/main.js"></script>    </body>  
+
+
+</html>

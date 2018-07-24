@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+<!--  courses-3-col.html   23:04:12 GMT -->
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Bromine | Courses 3 Columns</title>
+	<link rel="stylesheet" href="assets/libs/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/libs/material-design-iconic-font/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" href="assets/libs/jquery-ui/jquery-ui.min.css">
+	<link rel="stylesheet" href="assets/libs/rslides/responsiveslides.css">
+	<link rel="stylesheet" href="assets/libs/slick/slick.css">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="icon" type="image/png" href="assets/images/favicon.png" />
+
+	<!--Core CSS -->
+	<link rel="stylesheet" href="assets/css/bulma.css">
+	<link rel="stylesheet" href="assets/css/app.css">
+	<link rel="stylesheet" href="assets/css/core_green.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,600%7CMontserrat:300,400,600%7CRaleway:300,400,400i,600%7COpen+Sans:400,400i%7CVarela+Round">
+	<style>
+		body {
+			background-color: #EFF4F7;
+			background-image: linear-gradient(141deg, #d0e0ec 0%, #f5f7fa 71%, #fff 100%);
+		}
+
+		.navbar {
+			background-color: #00b289;
+		}
+
+		.page .page-heading {
+			background-color: #00b289;
+		}
+
+		a.navbar-item,
+		.navbar-link {
+			text-decoration: none;
+		}
+
+		.popular .tutorials .tutorial {
+			margin-bottom: 8px;
+		}
+
+		.popular .tutorial .tutorial-details .greybutton {
+			background: #00b289;
+		}
+
+		.navbar-wrapper.navbar-light .icon-box-toggle span i {
+			display: none;
+		}
+
+		.menu-toggle .icon-line-center {
+			display: none;
+		}
+
+		.menu-toggle .icon-box-toggle {
+			display: none;
+		}
+
+		.tutorial {
+			background: white;
+		}
+
+		.page .page-heading h2 {
+			color: white;
+		}
+	</style>
+</head>
+
+<body id="courses-3-col" class="page">
+
+	<nav class="navbar navbar-wrapper navbar-fade navbar-light is-transparent">
+		<div class="container">
+			<!-- Brand -->
+			<div class="navbar-brand">
+				<a class="navbar-item" href="/">
+					<img class="light-logo" src="assets/images/logos/bulkit-white.svg" alt="">
+					<img class="dark-logo" src="assets/images/logos/bulkit-green.svg" alt="">
+				</a>
+				<!-- Responsive toggle -->
+				<div class="custom-burger" data-target="">
+					<a id="" class="responsive-btn" href="javascript:void(0);">
+						<span class="menu-toggle">
+							<span class="icon-box-toggle">
+								<span class="rotate">
+									<i class="icon-line-top"></i>
+									<i class="icon-line-center"></i>
+									<i class="icon-line-bottom"></i>
+								</span>
+							</span>
+						</span>
+					</a>
+				</div>
+				<!-- /Responsive toggle -->
+			</div>
+
+			<!-- Navbar menu -->
+			<div class="navbar-menu">
+				<!-- Navbar Start -->
+				<div class="navbar-start">
+					<!-- Navbar item -->
+					<a class="navbar-item is-slide" href="/features">
+						Features
+					</a>
+					<!-- Navbar item -->
+					<a class="navbar-item is-slide" href="/pricing">
+						Pricing
+					</a>
+					<!-- Navbar item -->
+					<a class="navbar-item is-slide" href="/services">
+						Services
+					</a>
+					<!-- Navbar item -->
+					<% if(!user){ %>
+						<a class="navbar-item is-slide" href="/login">
+							Login
+						</a>
+						<% } else{ %>
+							<a class="navbar-item is-slide" href="/register">
+								register
+							</a>
+							<% } %>
+				</div>
+
+				<!-- Navbar end -->
+				<div class="navbar-end">
+					<!-- Signup button -->
+					<div class="navbar-item">
+						<a id="#signup-btn" href="/signup" class="button button-signup btn-outlined is-bold btn-align light-btn raised">
+							Free Trial
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<main>
+
+		<div class="page-heading text-center">
+			<div class="container">
+				<h2>OUR SERVICES</h2>
+			</div>
+		</div>
+		<div class="container courses-browse popular">
+			<form>
+				<div class="row toolbar">
+					<div class="col-sm-6 col-xs-12 text-keywords">
+						<select id="select" class="keywords ui-selectmenu-text" type="text">
+							<option value="">Choose a category</option>
+							<option value="IT Development"> IT Development</option>
+							<option value="Business">Business</option>
+							<option value="School">School</option>
+							<option value="Agriculture">Agriculture</option>
+							<option value="Food & Dishes">Food & Dishes</option>
+							<option value="Events">Events</option>
+							<option value="Medicine">Medicine</option>
+						</select>
+					</div>
+					<div class="col-sm-6 col-xs-12 search-button">
+						<button class="search-teachers" id="search">SEARCH</button>
+					</div>
+				</div>
+			</form>
+			<div class="row tutorials" id="cards">
+
+			</div>
+		</div>
+
+
+	</main>
+
+	<script src="assets/libs/jquery/jquery.js"></script>
+	<script src="assets/libs/bootstrap/js/bootstrap.min.js"></script>
+	<script src="assets/libs/rslides/responsiveslides.min.js"></script>
+	<script src="assets/libs/jquery-ui/jquery-ui.min.js"></script>
+	<script src="assets/libs/slick/slick.min.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script src="assets/js/app.js"></script>
+
+	<!-- Bulkit js -->
+	<script src="assets/js/landingv1.js"></script>
+	<script src="assets/js/auth.js"></script>
+	<script src="assets/js/main.js"></script>
+
+	<script>
+		function addServices(services) {
+			for (var i = services.length - 1; i > -1; i--) {
+				var newService = $(`
+		<div class="col-md-4">
+		<div class="tutorial">
+			<div class="tutorial-details">
+				<h6>${services[i].company}</h6>
+				<p><span class="lessons">${services[i].user}</span><span class="duration"><i class="zmdi zmdi-time"></i>3:15h</span></p>
+				<p class="abs">${services[i].service}</p>
+				<a href="/service/${services[i].company}" class="greybutton">VIEW SERVICE</a>
+			</div>
+		</div>
+	</div>
+		`)
+				$('#cards').append(newService);
+			}
+		}
+		$(document).ready(function () {
+			$.get('/api/service/services').then(function (services) {
+				addServices(services);
+			});
+		});
+		$('#search').click(function (e) {
+			e.preventDefault();
+			console.log('clicked!!!');
+			var category = $('#select').val();
+			$.post('/api/service/category', { category: category }).then(function (services) {
+				$('#cards').children().remove();
+				addServices(services);
+			});
+		});
+	</script>
+
+
+	<!--  courses-3-col.html   23:04:30 GMT -->
+
+</html>
