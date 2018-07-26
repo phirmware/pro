@@ -39,5 +39,23 @@ router.post('/category', (req, res) => {
     })
 });
 
+// Get all comments
+router.get('/comments/:id',(req,res)=>{
+    db.comments.find({company:req.params.id}).then(comments=>{
+        res.json(comments);
+    }).catch(err=>{
+        res.send(err);
+    });
+});
+
+//post comment route
+router.post("/service/:id",(req,res)=>{
+    db.comments.create(req.body).then((comment)=>{
+      res.json(comment);
+    }).catch(err=>{
+        res.send(err);
+    });
+  });
+
 //export the router module
 module.exports = router;

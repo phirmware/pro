@@ -12,11 +12,7 @@ var userSchema = new mongoose.Schema({
   country: String,
   location:String,
   plan: String,
-  category: String,
-  details:{
-    type:String,
-    default:'Edit your page'
-  }
+  category: String
 });
 
 var User = mongoose.model("users", userSchema);

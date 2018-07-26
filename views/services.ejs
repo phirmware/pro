@@ -119,7 +119,7 @@
 						</a>
 						<% } else{ %>
 							<a class="navbar-item is-slide" href="/register">
-								register
+								Register
 							</a>
 							<% } %>
 				</div>
@@ -188,7 +188,7 @@
 		function addServices(services) {
 			for (var i = services.length - 1; i > -1; i--) {
 				var newService = $(`
-		<div class="col-md-4">
+		<div class="col-md-4 col-sm-4">
 		<div class="tutorial">
 			<div class="tutorial-details">
 				<h6>${services[i].company}</h6>
@@ -204,12 +204,11 @@
 		}
 		$(document).ready(function () {
 			$.get('/api/service/services').then(function (services) {
-				addServices(services);
+		 		addServices(services);
 			});
 		});
 		$('#search').click(function (e) {
 			e.preventDefault();
-			console.log('clicked!!!');
 			var category = $('#select').val();
 			$.post('/api/service/category', { category: category }).then(function (services) {
 				$('#cards').children().remove();

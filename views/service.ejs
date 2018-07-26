@@ -8,19 +8,26 @@
 	<link rel="icon" type="image/png" href="assets/images/favicon.png" />
 	<title><%= service[0].company %></title>
 	<style>
+		body{
+			background: #f4f4f4;
+		}
+		.rounded{
+			box-shadow: 2px 2px 2px 2px rgba(0,0,0,.125);
+		}
 	  .navbar-brand{
-		font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;margin-left:8%;
+		font-family: inherit;margin-left:8%;
 	  }
 	  nav{
 		  margin-bottom: 2vh;
 		  background: #00b289;
 	  }
 	  .description{
-		  font-size: 15px;
+		  font-family: sans-serif;
+		  font-size: 16px;
 		  color: rgb(33, 48, 48);
 	  }
 	  #comment{
-		  width: 80vw;
+		  width: 40vw;
 		  margin: 0px auto;
 	  }
 	  .list-group-item {
@@ -28,7 +35,13 @@
 		 border: none;
          border-bottom: 1px solid rgba(0,0,0,.125);
 		 line-height: 2.5;
-}
+		 background: none;
+		 color: rgba(0,0,0,0.7)
+      }
+      sup{
+	     top: 1em;
+		 font-size: 15px;
+      }
 	</style>
 </head>
 <body>
@@ -44,7 +57,7 @@
 				  </nav>
 		<div class="row">
 			<div class="col-sm-12 col-md-7 col-lg-7">
-					<img class="img-fluid img-thumbnail rounded" src="/assets/images/avatars/helen.jpg" alt="Chania" width="460" height="345">
+					<img class="img-fluid img-thumbnail rounded" src="/assets/images/kit/blog.jpg" alt="Chania" width="460" height="345">
 				    <div class="row">
 						<div class="col-12">
 							<h5 style="margin-top: 4vh">About Service</h5>
@@ -55,6 +68,15 @@
 											<p class="description lead">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fuga quidem enim rem. Accusamus error officia quisquam suscipit quos, optio alias ut vel ducimus architecto minima delectus eaque voluptates nostrum nam.</p>
 											<p class="description lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam sit corporis aspernatur nihil eius, numquam veritatis aut nesciunt expedita molestias commodi. Ratione nam unde minus quidem, quasi voluptate soluta? Explicabo.</p>
 										</div>
+										<% if(user){ %>
+											<% if(user.username == service[0].email){ %>
+												<div class="edit">
+														<a href="/service/<%= service[0].company %>/edit"><button class="btn">Edit Service Details</button></a>
+													</div>
+											<% } else{ %>
+										
+										  <% } %>
+										<% } else{} %>
 							</div>
 						</div>
 						
@@ -67,9 +89,10 @@
 					<div class="row">
 						<div class="col-12">
 								<ul class="list-group" style="margin-bottom: 2vh">
-										<li class="list-group-item"><span style="font-weight: bold">USER : </span><%= service[0].user %></li>
+										<li class="list-group-item"><span style="font-weight: bold">OWNER : </span><%= service[0].user %></li>
 										<li class="list-group-item"><span style="font-weight: bold">COMPANY : </span><%= service[0].company %></li>
 										<li class="list-group-item"><span style="font-weight: bold">PHONE NUMBER : </span><%= service[0].phone %></li>
+										<li class="list-group-item"><span style="font-weight: bold">EMAIL : </span><%= service[0].email %></li>
 										<li class="list-group-item"><span style="font-weight: bold">SERVICE : </span><%= service[0].service %></li>
 										<li class="list-group-item"><span style="font-weight: bold">COUNTRY : </span><%= service[0].country %></li>
 										<li class="list-group-item"><span style="font-weight: bold">CITY : </span><%= service[0].location %></li>
@@ -79,30 +102,74 @@
 				</div>
 			</div>
 			<div class="col-12">
-					<ul class="list-group" style="margin-bottom: 2vh">
+					<ul id="comment-container" class="list-group" style="margin-bottom: 2vh">
 						<h5  style="margin-top: 4vh">Comments</h5>
-						<li class="list-group-item">comments</li>
-						<li class="list-group-item">comments</li>
-						<li class="list-group-item">comments</li>
-						<li class="list-group-item">comments</li>
-						<li class="list-group-item">comments</li>
 					</ul>
 					<br>
 					<br>
 					<br>
+					<% if(user){ %>
+						<% if(user.username == service[0].email){}else{ %>
 					<form id="comment">
+						<h5>Drop a comment about the service you recieved</h5>
+						<br>
 						<div class="form-group">
 							<label for="name" style="font-weight: bold">Name</label>
 							<input type="text" class="form-control" id="name">
 						</div>
 						<div class="form-group">
 								<label for="comment" style="font-weight: bold">Respond to service</label>
-								<input type="text" class="form-control" id="comment">
+								<input type="text" class="form-control" id="comments">
 							</div>
-						<button class="btn btn-success">Post</button>
+						<button class="btn btn-success" id="commentbtn">Post</button>
 					</form>
+					<% } %>
+				<% }else{ %>
+					<form id="comment">
+							<h5>Drop a comment about the service you recieved</h5>
+							<br>
+							<div class="form-group">
+								<label for="name" style="font-weight: bold">Name</label>
+								<input type="text" class="form-control" id="name">
+							</div>
+							<div class="form-group">
+									<label for="comment" style="font-weight: bold">Respond to service</label>
+									<input type="text" class="form-control" id="comments">
+								</div>
+							<button class="btn btn-success" id="commentbtn">Post</button>
+						</form>
+				<% } %>
 				</div>
+				<br>
+				<br>
+				<hr>
+			<div class="col-12">
+				<a href="/">Go to bulkit home</a> 
+			</div>
 		</div>
 	</div>
+	<script src="/assets/libs/jquery/jquery.js"></script>
+	<script>
+	  $(document).ready(()=>{
+		  $.get('/api/service/comments/<%= company %>').then(comments=>{
+			for (var i = comments.length - 1; i > -1; i--) {
+				var newComment = $(`<li class="list-group-item"><sup style="font-weight: bolder;">${comments[i].name}</sup><br>${comments[i].comment}</li>`);
+				$('#comment-container').append(newComment);
+			}
+		  });
+	  });
+	 
+	  $('#commentbtn').click((e)=>{
+		  e.preventDefault();
+		  var name = $('#name').val();
+		  var comment = $('#comments').val();
+		  $.post('/api/service/service/<%= company %>',{company:'<%= company %>',name:name,comment:comment}).then(res=>{
+			  var newService = $(`<li class="list-group-item"><sup style="font-weight: bolder;">${res.name}</sup><br>${res.comment}</li>`);
+			  var cover = $('#comment-container').append(newService);
+			   $('#name').val('');
+		       $('#comments').val('');
+		  });
+	  });
+	</script>
 </body>
 </html>

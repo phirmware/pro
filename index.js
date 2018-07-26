@@ -45,7 +45,6 @@ app.get("/features", (req, res) => {
   res.render("landing-v1-features", { user: req.user });
 });
 
-
 //render login page
 app.get("/login", (req, res) => {
   res.render("landing-v1-login", { user: req.user });
@@ -56,7 +55,6 @@ app.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login'
 }), (req, res) => { });
-
 
 //render signup page
 app.get("/signup", (req, res) => {
@@ -99,11 +97,21 @@ app.get("/service/:id", (req, res) => {
     .find({ company: req.params.id })
     .then(detail => {
       console.log(detail);
-      res.render("service", { service: detail });
+      res.render("service", { service: detail,user:req.user,company:req.params.id });
     })
     .catch(err => {
       console.log(err);
     });
+});
+
+
+
+app.get("/service/:id/edit",isUser,(req,res)=>{
+  res.render('edit',{company:req.params.id});
+});
+
+app.post("/service/:id/edit",(req,res)=>{
+  db.user.findOneAndUpdate(req.params.id)
 });
 
 //get register page
@@ -111,15 +119,13 @@ app.get('/register', isUser, (req, res) => {
   res.render('register', { user: req.user });
 });
 
-
 //register user
 app.post("/register", isUser, function (req, res) {
-  req.body.company.replace(/ /g,'-');
   var usr = {
     user:req.body.user,
     company: req.body.company.replace(/ /g,'-'),
     service: req.body.service,
-    email: req.body.email,
+    email: req.user.username,
     phone: req.body.phone,
     country: req.body.country,
     location:req.body.location,
@@ -139,7 +145,7 @@ app.post("/register", isUser, function (req, res) {
 
 // render dashboard page
 app.get('/dashboard',(req,res)=>{
-  res.render('dashboard');
+  res.render('dashboard',{user:req.user});
 });
 
 //middleware => protects admin routes 
