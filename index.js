@@ -1,6 +1,9 @@
 var express = require("express");
 var app = express();
 const mongoose = require("mongoose");
+var path = require('path');
+var multer = require('multer');
+var methodOverride = require('method-override');
 var port = process.env.PORT || 3042;
 app.set("view engine", "ejs");
 var serviceRoutes = require("./routes/service");
@@ -19,6 +22,21 @@ app.use(require('express-session')({
   saveUninitialized: false
 }));
 
+
+// set storage engine
+const storage = multer.diskStorage({
+  destination:'./public/uploads',
+  filename:function(req,file,cb){
+    cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
+
+// init upload
+const upload = multer({
+  storage: storage,
+  limits:{fileSize: 10000000}
+}).single('myImage')
+
 //setup passport
 app.use(passport.initialize());
 app.use(passport.session());
@@ -34,6 +52,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //use static files
 app.use(express.static(__dirname + "/views"));
 app.use(express.static(__dirname + "/public"));
+app.use(methodOverride("_method"));
 
 //render root route
 app.get("/", (req, res) => {
@@ -133,6 +152,7 @@ app.post("/register", isUser, function (req, res) {
     category:req.body.category,
     details:req.body.details
   }
+
   db.user.create(usr)
     .then(user => {
       res.redirect('/services');
@@ -157,6 +177,26 @@ function isUser(req, res, next) {
   }
 }
 
+//render upload page
+app.get('/service/upload-picture/:id',(req,res)=>{
+  res.render('upload',{company:req.params.id});
+});
+
+app.post('/service/upload-picture/:id',(req,res)=>{
+  upload(req,res,(err)=>{
+    if(err){
+      res.render('upload',{
+        msg:err
+      });
+    } else{
+      db.image.create({company:req.params.id,image:req.file.filename}).then(img=>{
+        res.redirect('/service/' + req.params.id);
+      }).catch(err =>{
+        res.redirect('/service/' + req.params.id);
+      });
+    }
+  })
+});
 
 //set api prefix for services route
 app.use("/api/service", serviceRoutes);

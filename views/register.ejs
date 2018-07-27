@@ -87,7 +87,7 @@
                                     <h2>Register</h2>
                                     <form action="/register" method="POST">
                                         <div class="control-material is-primary">      
-                                            <input class="material-input" name="company" type="text" required>
+                                            <input class="material-input" name="company" type="text" id="company" required>
                                             <span class="material-highlight"></span>
                                             <span class="bar"></span>
                                             <label>Company</label>
@@ -158,7 +158,34 @@
         <!-- Bulkit js -->
         <script src="assets/js/landingv1.js"></script>
         <script src="assets/js/auth.js"></script>
-        <script src="assets/js/main.js"></script>    </body>  
+        <script src="assets/js/main.js"></script>
+      <script>
+          var companys;
+          $(document).ready(function(){
+              $.get('/api/service').then(user => {
+                 companys = user;
+              });
+          });
+          
+         var notUnique;
+        $('#company').on('keyup',(e)=>{
+            var val = $('#company').val();
+            checkMail(val);
+        });
+
+        function checkMail(val){
+            console.log(companys);
+           for(let company of companys){
+               if(val == company.company){
+                   return notUnique = true;
+                   alert('Email already registered!');
+               } else{
+                   notUnique = false;
+               }
+           }
+        }
+      </script>
+    </body>  
 
 
 </html>

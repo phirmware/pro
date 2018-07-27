@@ -57,5 +57,14 @@ router.post("/service/:id",(req,res)=>{
     });
   });
 
+//get user image
+router.get("/image/:id",(req,res)=>{
+    db.image.find({company:req.params.id}).then(image=>{
+        res.json(image);
+    }).catch(err=>{
+        res.send(err);
+    });
+});
+
 //export the router module
 module.exports = router;
