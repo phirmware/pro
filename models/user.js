@@ -10,13 +10,25 @@ var userSchema = new mongoose.Schema({
     type:String,
     unique:true
   },
-  service: String,
-  email: String,
+  service: {
+    type:String,
+    required:true
+  },
+  email: {
+    type:String,
+    required:true
+  },
   phone: String,
   country: String,
   location:String,
-  plan: String,
-  category: String
+  plan: {
+    type:String,
+    required:true
+  },
+  category: {
+    type:String,
+    required:true
+  }
 });
 
 userSchema.plugin(uniqueValidator, { message: 'Error, someone already registered with this comapany name.' });

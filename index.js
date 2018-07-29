@@ -188,8 +188,39 @@ app.get('/comment',isUser,(req,res)=>{
 
 // render dashboard page
 app.get('/dashboard',(req,res)=>{
-  res.render('dashboard',{user:req.user});
+  db.user.find({email:req.user.username}).then(user=>{
+    res.render('dashboard',{user:user});
+  })
 });
+
+app.get('/edit-service/:id',(req,res)=>{
+   db.user.find({company:req.params.id}).then(comp=>{
+     res.render('edit-company',{company:comp,error:req.flash('Error')});
+   });
+});
+
+app.put('/edit-service/:id',isUser,(req,res)=>{
+  var usr = {
+    user:req.body.user,
+    company: req.params.id,
+    service: req.body.service,
+    email: req.user.username,
+    phone: req.body.phone,
+    country: req.body.country,
+    location:req.body.location,
+    plan: req.body.plan,
+    category:req.body.category
+  }
+   db.user.findOneAndUpdate({company:req.params.id},usr,(err,updatedUser)=>{
+     if(err){
+       req.flash('Error',err);
+       res.redirect('/edit-service/' + req.params.id);
+     }else{
+       res.redirect('/service/' + req.params.id);
+     }
+   })
+})
+
 
 //middleware => protects admin routes
 function isUser(req, res, next) {
