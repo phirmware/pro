@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/assets/materialize/css/materialize.min.css"  media="screen,projection"/>
+    <title>Document</title>
+    <style>
+      form{
+          width: 60vw;
+          margin-left: 4px;
+      }
+    </style>
+</head>
+<body>
+        <div id="recover-card" class="animated preFadeInLeft fadeInLeft is-hidden">
+                <div class="flex-card clean-login-card">
+                    <h2>Reset Password</h2>
+                    <form action="/reset/<%= token %>" method="POST">
+                        <div class="input-field col s12">
+                                <input id="icon_telephone" name="password" type="password" class="validate">
+                        </div>
+                        <div class="input-field col s12">
+                                <input id="icon_telephone" name="confirm" type="password" class="validate">
+                        </div>
+                        <div class="mt-20">
+                            <button class="button button-cta btn-align primary-btn is-fullwidth raised no-lh">Reset Password</button>
+                        </div>
+                    </form>
+                </div>
+
+                <p class="has-text-centered mt-40">
+                    <a id="show-login" class="no-account primary-text" href="/login">Back to login</a>
+                </p>
+            </div>
+</body>
+</html>
