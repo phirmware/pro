@@ -7,7 +7,6 @@
 	<link type="text/css" rel="stylesheet" href="/assets/materialize/css/materialize.min.css"  media="screen,projection"/>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
 	<link rel="icon" type="image/png" href="assets/images/favicon.png" />
-	<link rel="icon" type="image/png" href="" />
 	<title><%= service[0].company %></title>
 	<style>
 		body{
@@ -49,14 +48,14 @@
 <body>
 	<div class="container">
 			<nav class="navbar navbar-expand-sm  navbar-dark">
-					<a class="navbar-brand" href="#" style="font-weight: bolder;line-height: 35px;">
+					<a class="navbar-brand" href="#" style="font-weight: bolder;line-height: 35px;margin-top: 15px;">
 						<%= service[0].company %>
 						<p class="small"><%= service[0].user %></p>
 					</a>
 					<ul class="navbar-nav">
 					 
 					</ul>
-				  </nav>
+			</nav>
 		<div class="row">
 			<div class="col-sm-12 col-md-7 col-lg-7">
 				<div id="imgcontainer">
@@ -136,7 +135,7 @@
 				<br>
 				<hr>
 			<div class="col-12">
-				<a href="/">Go to bulkit home</a> 
+					<a href="/" class="waves-effect waves-light btn">Go to Bulkit home</a>
 			</div>
 		</div>
 	</div>
@@ -151,9 +150,11 @@
 		  });
 
 		  $.get('/api/service/image/<%= company %>').then(img=>{
-			var img = $(`<img class="img-fluid img-thumbnail rounded" src="/uploads/${img[0].image}" alt="Upload an image" width="460" height="345">`);
+			var compImg = $(`<img class="img-fluid img-thumbnail rounded" src="/uploads/${img[0].image}" alt="Upload an image" width="460" height="345">`);
+			var headImg = $(`<link rel="icon" type="image/png" href="/uploads/${img[0].image}" />`);
 			$("#imgcontainer").children().remove();
-			$('#imgcontainer').append(img);
+			$('#imgcontainer').append(compImg);
+            $('head').append(headImg);
 		  });
 
 		  $.get('/api/service/details/<%= company %>').then(detail=>{
