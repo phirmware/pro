@@ -15,6 +15,20 @@
         <link rel="stylesheet" href="assets/css/bulma.css">
         <link rel="stylesheet" href="assets/css/app.css">
         <link rel="stylesheet" href="assets/css/core_green.css">
+        <style>
+                .alert{
+                    font-family: monospace;
+                    margin: 2px auto;
+                    margin-left: -2px;
+                    background: rgb(160, 28, 28);
+                    color: red;
+                    padding: 4px;
+                    width: 30vw;
+                    border: 1px solid rgb(122, 23, 23);
+                    border-radius: 5px;
+                    font-size: 20px;
+                }
+              </style>
 
     </head>
     <body>
@@ -73,6 +87,7 @@
             <div id="main-hero" class="hero-body">
                 <div class="container">
                     <div class="columns is-vcentered">
+                            
                         <div class="column is-5 is-offset-1 is-hidden-mobile">
                             <div class="flex-card clean-signup-info padding-20">
                                 <h2 class="has-text-centered clean-text">Get started</h2>
@@ -91,6 +106,9 @@
                             </div>
                         </div>
                         <div class="column is-6">
+                                <% if(error && error.length > 0){ %>
+                                    <h4 class="alert"><%= error[0].message %></h4>
+                                    <% } %>
                             <div id="signup-card" class="animated preFadeInLeft fadeInLeft">
                                 <div class="flex-card clean-signup-card">
                                     <h2 class="has-text-centered">Sign up</h2>

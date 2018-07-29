@@ -83,9 +83,15 @@
                         <div class="navbar-end">
                             <!-- Signup button -->
                             <div class="navbar-item">
-                                <a id="#signup-btn" href="/signup" class="button button-signup btn-outlined is-bold btn-align light-btn raised">
-                                    Free Trial
-                                </a>
+                                    <% if(!user){ %>
+                                        <a id="#signup-btn" href="/signup" class="button button-signup btn-outlined is-bold btn-align light-btn raised">
+                                            Free Trial
+                                        </a>
+                                    <% } else{ %> 
+                                        <a id="#signup-btn" href="/dashboard" class="button button-signup btn-outlined is-bold btn-align light-btn raised">
+                                            Dashboard
+                                        </a> 
+                                    <% } %>
                             </div>
                         </div>
                     </div>

@@ -22,6 +22,17 @@
             background-image: linear-gradient(141deg, #d0e0ec 0%, #f5f7fa 71%, #fff 100%);
         }
 
+        .alert{
+              font-family: monospace;
+              margin: 2px auto;
+              background: rgb(160, 28, 28);
+              color: red;
+              padding: 4px;
+              width: 30vw;
+              border: 1px solid rgb(122, 23, 23);
+              border-radius: 5px;
+              font-size: 20px;
+          }
         </style>
     </head>
     <body>
@@ -81,6 +92,9 @@
                 <div class="container has-text-centered">
                     <div class="columns is-vcentered">
                         <div class="column is-6 is-offset-3">
+                                <% if(error && error.length > 0){ %>
+                                    <h4 class="alert"><%= error[0].message %></h4>
+                                    <% } %>
                             <!-- Login form -->
                             <div id="login-card" class="animated preFadeInLeft fadeInLeft">
                                 <div class="flex-card clean-login-card">

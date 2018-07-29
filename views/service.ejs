@@ -68,9 +68,8 @@
 						</div>
 						<div class="container">
 							<div class="row">
-									<div class="col-12">
-											<p class="description lead">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fuga quidem enim rem. Accusamus error officia quisquam suscipit quos, optio alias ut vel ducimus architecto minima delectus eaque voluptates nostrum nam.</p>
-											<p class="description lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam sit corporis aspernatur nihil eius, numquam veritatis aut nesciunt expedita molestias commodi. Ratione nam unde minus quidem, quasi voluptate soluta? Explicabo.</p>
+									<div class="col-12" id="detail-container">
+			
 										</div>
 										<% if(user){ %>
 											<% if(user.username == service[0].email){ %>
@@ -111,9 +110,7 @@
 					<ul id="comment-container" class="list-group" style="margin-bottom: 2vh">
 						<h5  style="margin-top: 4vh">Comments</h5>
 					</ul>
-					<br>
-					<br>
-					<br>
+					
 					<% if(user){ %>
 						<% if(user.username == service[0].email){}else{ %>
 					<form id="comment">
@@ -131,19 +128,7 @@
 					</form>
 					<% } %>
 				<% }else{ %>
-					<form id="comment">
-							<h5>Drop a comment about the service you recieved</h5>
-							<br>
-							<div class="form-group">
-								<label for="name" style="font-weight: bold">Name</label>
-								<input type="text" class="form-control" id="name">
-							</div>
-							<div class="form-group">
-									<label for="comment" style="font-weight: bold">Respond to service</label>
-									<input type="text" class="form-control" id="comments">
-								</div>
-							<button class="btn btn-success" id="commentbtn">Post</button>
-						</form>
+					<a href="/comment"><button class="btn">make a comment</button></a>
 				<% } %>
 				</div>
 				<br>
@@ -168,7 +153,13 @@
 			var img = $(`<img class="img-fluid img-thumbnail rounded" src="/uploads/${img[0].image}" alt="Upload an image" width="460" height="345">`);
 			$("#imgcontainer").children().remove();
 			$('#imgcontainer').append(img);
-		  })
+		  });
+
+		  $.get('/api/service/details/<%= company %>').then(detail=>{
+			  var detail = $(`<p class="description lead">${detail[0].details}</p>`);
+			  $('#detail-container').children().remove();
+			  $('#detail-container').append(detail);
+		  });
 	  });
 	 
 	  $('#commentbtn').click((e)=>{

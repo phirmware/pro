@@ -9,3 +9,4 @@ module.exports.user = require('./user');
 module.exports.comments = require('./comments');
 module.exports.userlogin = require('./userLogin');
 module.exports.image = require('./image');
+module.exports.details = require('./details');

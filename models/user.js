@@ -1,11 +1,15 @@
 const mongoose = require("mongoose");
+var uniqueValidator = require('mongoose-unique-validator');
 
 var userSchema = new mongoose.Schema({
   user: {
     type:String,
     required:true
   },
-  company: String,
+  company: {
+    type:String,
+    unique:true
+  },
   service: String,
   email: String,
   phone: String,
@@ -14,6 +18,8 @@ var userSchema = new mongoose.Schema({
   plan: String,
   category: String
 });
+
+userSchema.plugin(uniqueValidator, { message: 'Error, someone already registered with this comapany name.' });
 
 var User = mongoose.model("users", userSchema);
 

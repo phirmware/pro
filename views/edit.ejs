@@ -21,9 +21,10 @@
             <div class="col-12">
                 <br>
                 <h4>Edit your write up</h4>
-                <form method="POST" action="/service/<%= company %>/edit" class="form-group">
+                <form method="POST" action="/service/<%= company %>/edit?_method=PUT" class="form-group">
+                    <input type="text" value="<%= company %>" class="form-control" name="company" disabled>
                     <label for="text"></label>
-                    <textarea class="form-control" id="text" cols="30" rows="10"></textarea>
+                    <textarea class="form-control" name="details" id="text"  cols="30" rows="10"><%= detail[0].details %></textarea>
                     <br>
                     <button class="btn btn-success">Submit</button>
                 </form>

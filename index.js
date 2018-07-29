@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 var path = require('path');
 var multer = require('multer');
 var methodOverride = require('method-override');
+var flash = require('connect-flash');
 var port = process.env.PORT || 3042;
 app.set("view engine", "ejs");
 var serviceRoutes = require("./routes/service");
@@ -13,6 +14,9 @@ const passport = require('passport');
 const localStrategy = require('passport-local');
 const passportLocalMongoose = require('passport-local-mongoose');
 mongoose.Promise = Promise;
+
+
+app.use(flash());
 
 
 //setup express session
@@ -54,6 +58,7 @@ app.use(express.static(__dirname + "/views"));
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 
+
 //render root route
 app.get("/", (req, res) => {
   res.render("index", { user: req.user });
@@ -66,7 +71,7 @@ app.get("/features", (req, res) => {
 
 //render login page
 app.get("/login", (req, res) => {
-  res.render("landing-v1-login", { user: req.user });
+  res.render("landing-v1-login", {error:req.flash("Error")});
 });
 
 //post to login route
@@ -77,14 +82,15 @@ app.post('/login', passport.authenticate('local', {
 
 //render signup page
 app.get("/signup", (req, res) => {
-  res.render("landing-v1-signup", { user: req.user });
+  res.render("landing-v1-signup", { user: req.user,error:req.flash('Error') });
 });
 
 // Signup a new user 
 app.post('/signup', (req, res) => {
   db.userlogin.register(new db.userlogin({ username: req.body.username }), req.body.password, (err, user) => {
     if (err) {
-      res.send(err);
+      req.flash("Error",err);
+      res.redirect('/signup');
     } else {
       passport.authenticate('local')(req, res, function () {
         res.redirect('/');
@@ -124,18 +130,30 @@ app.get("/service/:id", (req, res) => {
 });
 
 
-
+// get edit page
 app.get("/service/:id/edit",isUser,(req,res)=>{
-  res.render('edit',{company:req.params.id});
+  db.details.find({company:req.params.id}).then(comp=>{
+    res.render('edit',{company:req.params.id,detail:comp});
+  }).catch(err=>{
+    res.redirect('/service/' + req.params.id);
+  });
 });
 
-app.post("/service/:id/edit",(req,res)=>{
-  db.user.findOneAndUpdate(req.params.id)
+//update edit section
+app.put("/service/:id/edit",(req,res)=>{
+  console.log(req.body);
+  db.details.findOneAndUpdate({company:req.params.id},req.body,(err,detail)=>{
+    if(err){
+      res.redirect('/service/' + req.params.id + '/edit');
+    } else{
+      res.redirect('/service/' + req.params.id);
+    }
+  });
 });
 
 //get register page
 app.get('/register', isUser, (req, res) => {
-  res.render('register', { user: req.user });
+  res.render('register', { user: req.user,error:req.flash('Error') });
 });
 
 //register user
@@ -155,11 +173,16 @@ app.post("/register", isUser, function (req, res) {
 
   db.user.create(usr)
     .then(user => {
+      db.details.create({company:req.body.company.replace(/ /g,'-')})
       res.redirect('/services');
     })
     .catch(err => {
+      req.flash("Error",err);
       res.redirect('/register');
     });
+});
+
+app.get('/comment',isUser,(req,res)=>{
 });
 
 
@@ -168,11 +191,12 @@ app.get('/dashboard',(req,res)=>{
   res.render('dashboard',{user:req.user});
 });
 
-//middleware => protects admin routes 
+//middleware => protects admin routes
 function isUser(req, res, next) {
   if (req.user) {
     next();
-  } else {
+  } else { 
+    req.flash("Error","Please Log in");
     res.redirect('/login');
   }
 }
@@ -196,6 +220,12 @@ app.post('/service/upload-picture/:id',(req,res)=>{
       });
     }
   })
+});
+
+//logout user
+app.get('/logout',(req,res)=>{
+  req.logout();
+  res.redirect('/');
 });
 
 //set api prefix for services route

@@ -2,7 +2,10 @@ var mongoose = require('mongoose');
 
 var detailsSchema = new mongoose.Schema({
     company:String,
-    details:String
+    details:{
+        type:String,
+        default:''
+    }
 });
 
 var Details = mongoose.model('details',detailsSchema);

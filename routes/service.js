@@ -66,5 +66,15 @@ router.get("/image/:id",(req,res)=>{
     });
 });
 
+// get user details
+router.get('/details/:id',(req,res)=>{
+    db.details.find({company:req.params.id}).then(detail=>{
+        res.json(detail);
+    }).catch(err=>{
+        res.send(err);
+    });
+});
+
+
 //export the router module
 module.exports = router;

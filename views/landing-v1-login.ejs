@@ -15,6 +15,19 @@
         <link rel="stylesheet" href="assets/css/bulma.css">
         <link rel="stylesheet" href="assets/css/app.css">
         <link rel="stylesheet" href="assets/css/core_green.css">
+        <style>
+          .alert{
+              font-family: monospace;
+              margin: 2px auto;
+              background: rgb(160, 28, 28);
+              color: red;
+              padding: 4px;
+              width: 30vw;
+              border: 1px solid rgb(122, 23, 23);
+              border-radius: 5px;
+              font-size: 20px;
+          }
+        </style>
 
     </head>
     <body>
@@ -72,6 +85,9 @@
             <!-- Hero image -->
             <div id="main-hero" class="hero-body">
                 <div class="container has-text-centered">
+                    <% if(error && error.length > 0){ %>
+                    <h4 class="alert"><%= error %></h4>
+                    <% } %>
                     <div class="columns is-vcentered">
                         <div class="column is-6 is-offset-3">
                             <!-- Login form -->
