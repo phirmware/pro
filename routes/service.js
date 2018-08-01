@@ -39,6 +39,15 @@ router.post('/category', (req, res) => {
     })
 });
 
+//Find users in a country
+router.post('/country',(req,res)=>{
+    db.user.find({country:req.body.country}).then(users=>{
+        res.json(users);
+    }).catch(err=>{
+        console.log(err);
+    });
+});
+
 // Get all comments
 router.get('/comments/:id',(req,res)=>{
     db.comments.find({company:req.params.id}).then(comments=>{

@@ -19,7 +19,10 @@ var userSchema = new mongoose.Schema({
     required:true
   },
   phone: String,
-  country: String,
+  country: {
+    type:String,
+    required:true
+  },
   location:String,
   plan: {
     type:String,
@@ -28,7 +31,8 @@ var userSchema = new mongoose.Schema({
   category: {
     type:String,
     required:true
-  }
+  },
+  thumbnail:String
 });
 
 userSchema.plugin(uniqueValidator, { message: 'Error, someone already registered with this comapany name.' });

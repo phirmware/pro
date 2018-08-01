@@ -1,180 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link type="text/css" rel="stylesheet" href="/assets/materialize/css/materialize.min.css"  media="screen,projection"/>
+	<link type="text/css" rel="stylesheet" href="/assets/materialize/css/materialize.min.css" media="screen,projection" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
 	<link rel="icon" type="image/png" href="assets/images/favicon.png" />
-	<title><%= service[0].company %></title>
+	<title>
+		<%= service[0].company %>
+	</title>
 	<style>
-		body{
+		body {
 			background: #f4f4f4;
 		}
-		.rounded{
-			box-shadow: 2px 2px 2px 2px rgba(0,0,0,.125);
+
+		.rounded {
+			box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, .125);
 		}
-	  .navbar-brand{
-		font-family: inherit;margin-left:8%;
-	  }
-	  nav{
-		  margin-bottom: 2vh;
-		  background: #00b289;
-	  }
-	  .description{
-		  font-family: sans-serif;
-		  font-size: 16px;
-		  color: rgb(33, 48, 48);
-	  }
-	  #comment{
-		  width: 40vw;
-		  margin: 0px auto;
-	  }
-	  .list-group-item {
-         margin-bottom: 2px;
-		 border: none;
-         border-bottom: 1px solid rgba(0,0,0,.125);
-		 line-height: 2.5;
-		 background: none;
-		 color: rgba(0,0,0,0.7)
-      }
-      sup{
-	     top: 1em;
-		 font-size: 15px;
-      }
+
+		.navbar-brand {
+			font-family: inherit;
+			margin-left: 8%;
+		}
+
+		nav {
+			margin-bottom: 2vh;
+			background: #00b289;
+		}
+
+		.description {
+			font-family: sans-serif;
+			font-size: 16px;
+			color: rgb(33, 48, 48);
+		}
+
+		#comment {
+			width: 40vw;
+			margin: 0px auto;
+		}
+
+		.list-group-item {
+			margin-bottom: 2px;
+			border: none;
+			border-bottom: 1px solid rgba(0, 0, 0, .125);
+			line-height: 2.5;
+			background: none;
+			color: rgba(0, 0, 0, 0.7)
+		}
+
+		sup {
+			top: 1em;
+			font-size: 15px;
+		}
 	</style>
 </head>
+
 <body>
-	<div class="container">
-			<nav class="navbar navbar-expand-sm  navbar-dark">
-					<a class="navbar-brand" href="#" style="font-weight: bolder;line-height: 35px;margin-top: 15px;">
-						<%= service[0].company %>
-						<p class="small"><%= service[0].user %></p>
-					</a>
-					<ul class="navbar-nav">
-					 
-					</ul>
-			</nav>
+	<div class="container mt-3">
+		<nav class="navbar navbar-expand-sm navbar-dark justify-content-center text-uppercase">
+			<a class="navbar-brand " href="#" style="font-weight: bolder;">
+				<h3>
+					<%= service[0].company %>
+				</h3>
+			</a>
+			<ul class="navbar-nav">
+
+			</ul>
+		</nav>
 		<div class="row">
 			<div class="col-sm-12 col-md-7 col-lg-7">
 				<div id="imgcontainer">
-						<img class="img-fluid img-thumbnail rounded" src="" alt="Upload an image" width="460" height="345">
+					<img class="img-fluid img-thumbnail rounded" src="" alt="Upload an image" style="width:460px; height:345px;">
 				</div>
-					
-				    <div class="row">
-						<div class="col-12">
-							<h5 style="margin-top: 4vh">About Service</h5>
-						</div>
-						<div class="container">
-							<div class="row">
-									<div class="col-12" id="detail-container">
-			
-										</div>
-										<% if(user){ %>
-											<% if(user.username == service[0].email){ %>
-												<div class="edit">
-														<a href="/service/<%= service[0].company %>/edit"><button class="btn">Edit Write Up</button></a>
-														<a href="/service/upload-picture/<%= service[0].company %>"><button class="btn">Upload a picture</button></a>
-													</div>
-													
-											<% } else{ %>
-										
-										  <% } %>
-										<% } else{} %>
-							</div>
-						</div>
-						
-						
+
+				<div class="row">
+					<div class="col-12">
 					</div>
+					<div class="container">
+						<div class="row">
+							<div class="col-12" id="detail-container">
+
+							</div>
+							<% if(user){ %>
+								<% if(user.username == service[0].email){ %>
+									<div class="edit">
+										<a href="/service/<%= service[0].company %>/edit">
+											<button class="btn">Edit Write Up</button>
+										</a>
+										<div id="pic">
+											<a href="/service/upload-picture/<%= service[0].company %>">
+												<button class="btn">Upload a picture</button>
+											</a>
+										</div>
+									</div>
+
+									<% } else{ %>
+
+										<% } %>
+											<% } else{} %>
+						</div>
+					</div>
+
+
+				</div>
 			</div>
 			<div class="col-lg-5 col-md-5 col-sm-12">
 				<h5 style="text-align: center">About Company</h5>
 				<div class="container">
 					<div class="row">
 						<div class="col-12">
-								<ul class="list-group" style="margin-bottom: 2vh">
-										<li class="list-group-item"><span style="font-weight: bold">OWNER : </span><%= service[0].user %></li>
-										<li class="list-group-item"><span style="font-weight: bold">COMPANY : </span><%= service[0].company %></li>
-										<li class="list-group-item"><span style="font-weight: bold">PHONE NUMBER : </span><%= service[0].phone %></li>
-										<li class="list-group-item"><span style="font-weight: bold">EMAIL : </span><%= service[0].email %></li>
-										<li class="list-group-item"><span style="font-weight: bold">SERVICE : </span><%= service[0].service %></li>
-										<li class="list-group-item"><span style="font-weight: bold">COUNTRY : </span><%= service[0].country %></li>
-										<li class="list-group-item"><span style="font-weight: bold">CITY : </span><%= service[0].location %></li>
-									</ul>
+							<ul class="list-group" style="margin-bottom: 2vh">
+								<li class="list-group-item">
+									<span style="font-weight: bold">OWNER : </span>
+									<%= service[0].user %>
+								</li>
+								<li class="list-group-item">
+									<span style="font-weight: bold">COMPANY : </span>
+									<%= service[0].company %>
+								</li>
+								<li class="list-group-item">
+									<span style="font-weight: bold">PHONE NUMBER : </span>
+									<%= service[0].phone %>
+								</li>
+								<li class="list-group-item">
+									<span style="font-weight: bold">EMAIL : </span>
+									<%= service[0].email %>
+								</li>
+								<li class="list-group-item">
+									<span style="font-weight: bold">SERVICE : </span>
+									<%= service[0].service %>
+								</li>
+								<li class="list-group-item">
+									<span style="font-weight: bold">COUNTRY : </span>
+									<%= service[0].country %>
+								</li>
+								<li class="list-group-item">
+									<span style="font-weight: bold">CITY : </span>
+									<%= service[0].location %>
+								</li>
+							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-12">
-					<ul id="comment-container" class="list-group" style="margin-bottom: 2vh">
-						<h5  style="margin-top: 4vh">Comments</h5>
-					</ul>
-					
-					<% if(user){ %>
-						<% if(user.username == service[0].email){}else{ %>
-					<form id="comment">
-						<h5>Drop a comment about the service you recieved</h5>
-						<br>
-						<div class="form-group">
-							<label for="name" style="font-weight: bold">Name</label>
-							<input type="text" class="form-control" id="name">
-						</div>
-						<div class="form-group">
-								<label for="comment" style="font-weight: bold">Respond to service</label>
-								<input type="text" class="form-control" id="comments">
+			<div class="col-12 mb-3">
+				<ul id="comment-container" class="list-group" style="margin-bottom: 2vh">
+					<h5 style="margin-top: 4vh">Comments</h5>
+				</ul>
+
+				<% if(user){ %>
+					<% if(user.username == service[0].email){}else{ %>
+						<form id="comment">
+							<h5>Drop a comment about the service you recieved</h5>
+							<br>
+							<div class="form-group">
+								<label for="name" style="font-weight: bold">Name</label>
+								<input type="text" class="form-control" id="name" required>
 							</div>
-						<button class="btn btn-success" id="commentbtn">Post</button>
-					</form>
-					<% } %>
-				<% }else{ %>
-					<a href="/comment"><button class="btn">make a comment</button></a>
-				<% } %>
-				</div>
-				<br>
-				<br>
-				<hr>
-			<div class="col-12">
-					<a href="/" class="waves-effect waves-light btn">Go to Bulkit home</a>
+							<div class="form-group">
+								<label for="comment" style="font-weight: bold">Respond to service</label>
+								<input type="text" class="form-control" id="comments" required>
+							</div>
+							<button class="btn btn-success" id="commentbtn">Post</button>
+						</form>
+						<% } %>
+							<% }else{ %>
+								<a href="/comment">
+									<button class="btn">make a comment</button>
+								</a>
+								<% } %>
+			</div>
+			<br>
+			<br>
+			<hr>
+			<style>
+				#home:hover {
+					color: white !important;
+					background-color: black;
+				}
+			</style>
+			<div class="col-12 text-center">
+				<a href="/" class="btn" id="home">Go to Bulkit home</a>
 			</div>
 		</div>
 	</div>
 	<script src="/assets/libs/jquery/jquery.js"></script>
 	<script>
-	  $(document).ready(()=>{
-		  $.get('/api/service/comments/<%= company %>').then(comments=>{
-			for (var i = comments.length - 1; i > -1; i--) {
-				var newComment = $(`<li class="list-group-item"><sup style="font-weight: bolder;">${comments[i].name}</sup><br>${comments[i].comment}</li>`);
-				$('#comment-container').append(newComment);
-			}
-		  });
+		$(document).ready(() => {
+			$.get('/api/service/comments/<%= company %>').then(comments => {
+				for (var i = comments.length - 1; i > -1; i--) {
+					if(comments[i].name == '' || undefined){
 
-		  $.get('/api/service/image/<%= company %>').then(img=>{
-			var compImg = $(`<img class="img-fluid img-thumbnail rounded" src="/uploads/${img[0].image}" alt="Upload an image" width="460" height="345">`);
-			var headImg = $(`<link rel="icon" type="image/png" href="/uploads/${img[0].image}" />`);
-			$("#imgcontainer").children().remove();
-			$('#imgcontainer').append(compImg);
-            $('head').append(headImg);
-		  });
+					} else{
+					var newComment = $(`<li class="list-group-item"><sup style="font-weight: bolder;">${comments[i].name}</sup><br>${comments[i].comment}</li>`);
+					$('#comment-container').append(newComment);
+					}
+				}
+			});
 
-		  $.get('/api/service/details/<%= company %>').then(detail=>{
-			  var detail = $(`<p class="description lead">${detail[0].details}</p>`);
-			  $('#detail-container').children().remove();
-			  $('#detail-container').append(detail);
-		  });
-	  });
-	 
-	  $('#commentbtn').click((e)=>{
-		  e.preventDefault();
-		  var name = $('#name').val();
-		  var comment = $('#comments').val();
-		  $.post('/api/service/service/<%= company %>',{company:'<%= company %>',name:name,comment:comment}).then(res=>{
-			  var newService = $(`<li class="list-group-item"><sup style="font-weight: bolder;">${res.name}</sup><br>${res.comment}</li>`);
-			  var cover = $('#comment-container').append(newService);
-			   $('#name').val('');
-		       $('#comments').val('');
-		  });
-	  });
+			$.get('/api/service/image/<%= company %>').then(img => {
+				var compImg = $(`<img class="img-fluid img-thumbnail rounded" src="/uploads/${img[0].image}" alt="Upload an image" style="width:460px; height:345px;">`);
+				var headImg = $(`<link rel="icon" type="image/png" href="/uploads/${img[0].image}" />`);
+				$("#imgcontainer").children().remove();
+				$("#pic").children().remove();
+				$('#imgcontainer').append(compImg);
+				$('head').append(headImg);
+			});
+
+			$.get('/api/service/details/<%= company %>').then(detail => {
+				var detail = $(`<p class="description lead mt-4">${detail[0].details}</p>`);
+				$('#detail-container').children().remove();
+				$('#detail-container').append(detail);
+			});
+		});
+
+		$('#commentbtn').click((e) => {
+			e.preventDefault();
+			var name = $('#name').val();
+			var comment = $('#comments').val();
+			$.post('/api/service/service/<%= company %>', { company: '<%= company %>', name: name, comment: comment }).then(res => {
+				var newService = $(`<li class="list-group-item"><sup style="font-weight: bolder;">${res.name}</sup><br>${res.comment}</li>`);
+				var cover = $('#comment-container').append(newService);
+				$('#name').val('');
+				$('#comments').val('');
+			});
+		});
 	</script>
 </body>
+
 </html>

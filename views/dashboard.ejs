@@ -37,17 +37,21 @@
                   <a  class="brand-logo">Dashboard</a>
                   <ul class="right hide-on-med-and-down">
                         <li><a href="/"><i class="material-icons left">home</i>Home</a></li>
+                        <% if(user[0]){ %>
                     <li><a><%= user[0].email %></a></li>
+                    <% } %>
                     <li><a href="/logout" style="color: rgb(143, 12, 12)"><i style="color: rgb(112, 7, 7)" class="material-icons right">account_circle</i>Logout</a></li>
                   </ul>
                 </div>
-              </nav>
+              </nav> 
 
 
 <div class="row" id="small-nav">
 <div class="icon-container">
         <a href="/"><i class="material-icons">home</i>Home</a>
+        <% if(user[0]){ %>
         <a><i class="material-icons">account_circle</i><%= user[0].email %></a>
+        <% } %>
         <a style="color: red" href="/logout"><i style="color: red" class="material-icons">account_circle</i>Logout</a>
 </div>
 </div>
@@ -81,7 +85,7 @@
     <script>
       $(document).ready(function(){
        
-      })
+      });
     </script>
   </body>
 </html>

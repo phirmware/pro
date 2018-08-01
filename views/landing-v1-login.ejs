@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="assets/css/app.css">
         <link rel="stylesheet" href="assets/css/core_green.css">
         <style>
-          .alert{
+          .alert-error{
               font-family: monospace;
               margin: 2px auto;
               background: rgb(160, 28, 28);
@@ -24,6 +24,17 @@
               padding: 4px;
               width: 30vw;
               border: 1px solid rgb(122, 23, 23);
+              border-radius: 5px;
+              font-size: 20px;
+          }
+          .alert-success{
+              font-family: monospace;
+              margin: 2px auto;
+              background: rgb(10, 161, 78);
+              color: rgb(2, 83, 9);
+              padding: 4px;
+              width: 30vw;
+              border: 1px solid rgb(13, 184, 7);
               border-radius: 5px;
               font-size: 20px;
           }
@@ -86,8 +97,11 @@
             <div id="main-hero" class="hero-body">
                 <div class="container has-text-centered">
                     <% if(error && error.length > 0){ %>
-                    <h4 class="alert"><%= error %></h4>
+                    <h4 class="alert-error"><%= error %></h4>
                     <% } %>
+                    <% if(success && success.length > 0){ %>
+                        <h4 class="alert-success"><%= success %></h4>
+                        <% } %>
                     <div class="columns is-vcentered">
                         <div class="column is-6 is-offset-3">
                             <!-- Login form -->

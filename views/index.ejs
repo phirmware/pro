@@ -15,6 +15,19 @@
         <link rel="stylesheet" href="assets/css/bulma.css">
         <link rel="stylesheet" href="assets/css/app.css">
         <link rel="stylesheet" href="assets/css/core_green.css">
+        <style>
+           .alert-success{
+              font-family: monospace;
+              margin: 2px auto;
+              background: rgb(10, 161, 78);
+              color: rgb(2, 83, 9);
+              padding: 4px;
+              width: 30vw;
+              border: 1px solid rgb(13, 184, 7);
+              border-radius: 5px;
+              font-size: 20px;
+          }
+        </style>
 
     </head>
     <body>
@@ -99,6 +112,9 @@
             </nav>
             <!-- Hero image -->
             <div id="main-hero" class="hero-body is-clean">
+                    <% if(success && success.length > 0){ %>
+                        <h4 class="alert-success"><%= success %></h4>
+                        <% } %>
                 <div class="container has-text-centered">
                     <div class="columns is-vcentered">
                         <div class="column is-5 caption-column has-text-left">
