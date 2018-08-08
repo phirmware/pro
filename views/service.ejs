@@ -84,7 +84,7 @@
 
 							</div>
 							<% if(user){ %>
-								<% if(user.username == service[0].email){ %>
+								<% if(user.username == service[0].username){ %>
 									<div class="edit">
 										<a href="/service/<%= service[0].company %>/edit">
 											<button class="btn">Edit Write Up</button>
@@ -151,7 +151,7 @@
 				</ul>
 
 				<% if(user){ %>
-					<% if(user.username == service[0].email){}else{ %>
+					<% if(user.username == service[0].username){}else{ %>
 						<form id="comment">
 							<h5>Drop a comment about the service you recieved</h5>
 							<br>
@@ -170,7 +170,7 @@
 								<a href="/comment">
 									<button class="btn">make a comment</button>
 								</a>
-								<% } %>
+							<% } %>
 			</div>
 			<br>
 			<br>
@@ -183,6 +183,7 @@
 			</style>
 			<div class="col-12 text-center">
 				<a href="/" class="btn" id="home">Go to Bulkit home</a>
+				<a href="/services" class="btn">Services</a>
 			</div>
 		</div>
 	</div>

@@ -2,6 +2,14 @@ const mongoose = require("mongoose");
 var uniqueValidator = require('mongoose-unique-validator');
 
 var userSchema = new mongoose.Schema({
+  section:{
+    type:String,
+    required:true
+  },
+  username:{
+     type:String,
+     required:true
+  },
   user: {
     type:String,
     required:true
@@ -32,7 +40,14 @@ var userSchema = new mongoose.Schema({
     type:String,
     required:true
   },
-  thumbnail:String
+  thumbnail:{
+    type:String,
+    required:true
+  },
+  date:{
+    type:Date,
+    default:Date.now
+  }
 });
 
 userSchema.plugin(uniqueValidator, { message: 'Error, someone already registered with this comapany name.' });

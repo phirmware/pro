@@ -38,21 +38,23 @@ const storage = multer.diskStorage({
 });
 
 //file filter
-var imageFilter = function(req,file,cb){
+var imageFilter = function (req, file, cb) {
   // accept image files only
-  if(!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)){
-    return cb(new Error('Only image files are allowed!'),false);
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+    return cb(new Error('Only image files are allowed!'), false);
   }
-  cb(null,true);
+  cb(null, true);
 }
 
 // init upload
+// upload image for user page 
 const upload = multer({
   storage: storage,
   limits: { fileSize: 10000000 },
   fileFilter: imageFilter
 }).single('myImage')
 
+// upload image for card .....
 const upload1 = multer({
   storage: storage,
   limits: { fileSize: 10000000 },
@@ -61,9 +63,9 @@ const upload1 = multer({
 
 var cloudinary = require('cloudinary');
 cloudinary.config({
-  cloud_name:'phirmware',
+  cloud_name: '',
   api_key:'',
-  api_secret:''
+  api_secret: ''
 });
 
 //setup passport
@@ -114,13 +116,14 @@ app.get("/signup", (req, res) => {
 
 // Signup a new user 
 app.post('/signup', (req, res) => {
-  db.userlogin.register(new db.userlogin({ username: req.body.username }), req.body.password, (err, user) => {
+  var newUser = new db.userlogin({ username: req.body.username, email: req.body.email });
+  db.userlogin.register(newUser, req.body.password, (err, user) => {
     if (err) {
       req.flash("Error", err);
       res.redirect('/signup');
     } else {
       passport.authenticate('local')(req, res, function () {
-        res.redirect('/');
+        res.redirect('/register');
       })
     }
   })
@@ -143,15 +146,24 @@ app.get("/services", (req, res) => {
     });
 });
 
-// Find user detail
+// Find user detail for portfolio
 app.get("/service/:id", (req, res) => {
   db.user
     .find({ company: req.params.id })
     .then(detail => {
-      console.log(detail);
       res.render("service", { service: detail, user: req.user, company: req.params.id });
     })
     .catch(err => {
+      console.log(err);
+    });
+});
+
+// Find user detail for business page
+app.get('/company/:id', (req, res) => {
+  db.user.find({ company: req.params.id })
+    .then(detail => {
+      res.render('company', { service: detail });
+    }).catch(err => {
       console.log(err);
     });
 });
@@ -184,30 +196,40 @@ app.get('/register', isUser, (req, res) => {
 });
 
 //register user
-app.post("/register", isUser, upload1,function (req, res) {
-  cloudinary.uploader.upload(req.file.path,function(result){
-    var usr = {
-      user: req.body.user,
-      company: req.body.company.replace(/ /g, '-'),
-      service: req.body.service,
-      email: req.user.username,
-      phone: req.body.phone,
-      country: req.body.country,
-      location: req.body.location,
-      plan: req.body.plan,
-      category: req.body.category,
-      thumbnail:result.secure_url
+app.post("/register", isUser, function (req, res) {
+  upload1(req, res, (err) => {
+    if (err) {
+      res.redirect('/register');
+    } else {
+      var usr = {
+        section: req.body.section,
+        username: req.user.username,
+        user: req.body.user,
+        company: req.body.company.replace(/ /g, '-'),
+        service: req.body.service,
+        email: req.body.email,
+        phone: req.body.phone,
+        country: req.body.country,
+        location: req.body.location,
+        plan: req.body.plan,
+        category: req.body.category,
+        thumbnail: '/uploads/' + req.file.filename
+      }
+
+      db.user.create(usr)
+        .then(user => {
+          db.details.create({ company: req.body.company.replace(/ /g, '-') });
+          if (req.body.section == 'portfolio') {
+            res.redirect('/service/' + usr.company);
+          } else if (req.body.section == 'Business-page') {
+            res.redirect('/company/' + usr.company);
+          }
+        })
+        .catch(err => {
+          req.flash("Error", err);
+          res.redirect('back');
+        });
     }
-  
-    db.user.create(usr)
-      .then(user => {
-        db.details.create({ company: req.body.company.replace(/ /g, '-') })
-        res.redirect('/service/' + usr.company);
-      })
-      .catch(err => {
-        req.flash("Error", err);
-        res.redirect('back');
-      });
   });
 });
 
@@ -219,9 +241,9 @@ app.get('/comment', isUser, (req, res) => {
 
 // render dashboard page
 app.get('/dashboard', isUser, (req, res) => {
-  db.user.find({ email: req.user.username }).then(user => {
-    res.render('dashboard', { user: user });
-  })
+  db.user.find({ username: req.user.username }).then(user => {
+    res.render('dashboard', { user: user, presentUser: req.user.username });
+  });
 });
 
 
@@ -234,8 +256,8 @@ app.get('/edit-service/:id', (req, res) => {
 
 
 // update service 
-app.put('/edit-service/:id', isUser, upload1,(req, res) => {
-  cloudinary.uploader.upload(req.file.path,function(result){
+app.put('/edit-service/:id', isUser, upload1, (req, res) => {
+  cloudinary.uploader.upload(req.file.path, function (result) {
     var usr = {
       user: req.body.user,
       company: req.params.id,
@@ -246,7 +268,7 @@ app.put('/edit-service/:id', isUser, upload1,(req, res) => {
       location: req.body.location,
       plan: req.body.plan,
       category: req.body.category,
-      thumbnail:result.secure_url
+      thumbnail: result.secure_url
     }
     db.user.findOneAndUpdate({ company: req.params.id }, usr, (err, updatedUser) => {
       if (err) {
@@ -288,7 +310,7 @@ app.post('/forgot', (req, res) => {
       var smtpTransport = nodeMailer.createTransport({
         service: 'Gmail',
         auth: {
-          user: 'chibuzor.ojukwu@gmail.com',
+          user: '',
           pass: ''
         }
       });

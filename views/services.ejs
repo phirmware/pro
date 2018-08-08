@@ -6,7 +6,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>Services</title>
+	<title>Servgo :: Services</title>
 	<link rel="stylesheet" href="assets/libs/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/libs/material-design-iconic-font/css/material-design-iconic-font.min.css">
 	<link rel="stylesheet" href="assets/libs/jquery-ui/jquery-ui.min.css">
@@ -70,6 +70,16 @@
 		.text-keywords .keywords {
 			padding: 15px;
 		}
+
+		.navbar-wrapper .navbar-brand img.light-logo {
+			margin-bottom: -11px;
+		}
+		a.navbar-item, .navbar-link{
+              font-weight: bold;
+          }
+		  .navbar-wrapper.navbar-faded .navbar-brand img.dark-logo{
+			  margin-bottom: -10px;
+		  }
 	</style>
 </head>
 
@@ -458,12 +468,15 @@
 	<script>
 		function addServices(services) {
 			for (var i = services.length - 1; i > -1; i--) {
+				// if(services[i].plan == 'Free'){
+
+				// } else{
 				var newService = $(`
 		<div class="col-md-4 col-sm-4">
 		<div class="tutorial">
 			<div class="tutorial-details">
 				<h6>${services[i].company}</h6>
-				<p><span class="lessons">${services[i].user}</span><span class="duration"><img src="${services[i].thumbnail}" alt="..." style="width:100%;height:198px"></span></p>
+				<p><span class="lessons">${services[i].user}</span><span class="duration"><img src="${services[i].thumbnail}" alt="..." style="width:100%;height:192px"></span></p>
 				<p class="abs">${services[i].service}</p>
 				<a href="/service/${services[i].company}" class="greybutton">VIEW SERVICE</a>
 			</div>
@@ -472,12 +485,14 @@
 		`)
 				$('#cards').append(newService);
 			}
+	//	}
 		}
 		$(document).ready(function () {
 			$.get('/api/service/services').then(function (services) {
 				addServices(services);
 			});
 		});
+
 		$('#search').click(function (e) {
 			e.preventDefault();
 			var category = $('#select').val();
