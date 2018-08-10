@@ -23,7 +23,7 @@ app.use(flash());
 
 //setup express session
 app.use(require('express-session')({
-  secret: 'X2YT*xeQ6a7m_v%wqArWZ_QS*?kzLRH7BfexM=tC3*ff_774$m',
+  secret: '',
   resave: false,
   saveUninitialized: false
 }));
@@ -65,7 +65,7 @@ var cloudinary = require('cloudinary');
 cloudinary.config({
   cloud_name: 'phirmware',
   api_key: 638134991796689,
-  api_secret: 'tAPIDGgjsVWvv_2gHZ4-8V_Qr6Q'
+  api_secret: ''
 });
 
 //setup passport
@@ -156,7 +156,7 @@ app.post('/signup', (req, res) => {
               service: 'Gmail',
               auth: {
                 user: 'chibuzor.ojukwu@gmail.com',
-                pass: '09036229746'
+                pass: ''
               }
             });
             var mailOptions = {
@@ -409,7 +409,7 @@ app.post('/forgot', (req, res) => {
         service: 'Gmail',
         auth: {
           user: 'chibuzor.ojukwu@gmail.com',
-          pass: '09036229746'
+          pass: ''
         }
       });
       var mailOptions = {
@@ -476,11 +476,11 @@ app.post('/reset/:id', function (req, res) {
         service: 'Gmail',
         auth: {
           user: 'chibuzor.ojukwu@gmail.com',
-          pass: '09036229746'
+          pass: ''
         }
       });
       var mailOptions = {
-        to: user.username,
+        to: user.email,
         from: 'chibuzor.ojukwu@gmail.com',
         subject: 'Your password has been reset',
         text: 'Your password has been reset'
