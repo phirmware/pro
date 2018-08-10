@@ -139,7 +139,7 @@ app.post('/signup', (req, res) => {
           function (token, done) {
             db.userlogin.findOne({ username: req.body.username }, function (err, user) {
               if (!user) {
-                req.flash('Error', 'No account with that email address exists.');
+                req.flash('Error', 'No account with that Email address exists.');
                 return res.redirect('/signup');
               }
       
