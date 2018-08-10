@@ -1,1 +1,284 @@
-<h3>company page</h3>
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <!-- Required Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>
+        <%= company %>
+    </title>
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <!--Core CSS -->
+    <link rel="stylesheet" href="/assets/css/bulma.css">
+    <link rel="stylesheet" href="/assets/css/app.css">
+    <link rel="stylesheet" href="/assets/css/core_green.css">
+    <style>
+        a.navbar-item,
+        .navbar-link {
+            font-weight: bold;
+        }
+
+        #detail-container {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .description {
+            line-height: 1px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <% if(service[0]){ %>
+        <div class="pageloader"></div>
+        <div class="infraloader is-active"></div>
+        <!-- Hero and nav -->
+        <div class="hero is-medium is-theme-primary">
+            <!-- Hero image -->
+            <div id="main-hero" class="hero-body pricing-hero">
+                <div class="container">
+                    <div class="columns is-vcentered">
+                        <div class="column is-6 is-offset-3 header-caption has-text-centered pt-60 pb-60">
+                            <h1 class="title is-1 clean-title light-text">
+                                <%= company %>
+                            </h1>
+                            <% if(user && service[0]){%>
+                                <%  if(user.username == service[0].username){ %>
+                                    <input type="color" name="color" id="colorinput">
+                                    <input type="submit" id="submitcolor">
+                                    <h2 class="subtitle is-5 light-text pt-10 pb-10">
+                                        Choose a background color.
+                                    </h2>
+                                    <% }else{} %>
+                                        <% }else{} %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Hero image -->
+        </div>
+        <!-- /Hero and nav -->
+        <% if(user  && service[0]){%>
+            <%  if(user.username == service[0].username){ %>
+                <section class="section section-light-grey is-skewed-sm clean-pricing">
+                    <a href="/company/<%= company %>/edit" class="button btn-primary" style="margin-left:50%">Edit Page</a>
+                </section>
+                <% }else{} %>
+                    <% } %>
+
+                        <!-- FAQ -->
+                        <section class="section is-medium">
+                            <div class="container">
+                                <h2 class="title section-subtitle clean-text has-text-centered is-2" id="questions">
+                                    About Company
+                                </h2>
+                                <% if(service[0]){%>
+                                    <p id="detail-container">
+
+                                    </p>
+                                    <% } %>
+                            </div>
+                        </section>
+                        <!-- /FAQ -->
+
+                        <!-- Contact form -->
+                        <section class="section is-medium section-feature-grey">
+                            <div class="container">
+                                <h2 class="title section-subtitle clean-text dark-text has-text-centered is-2">
+                                    Have an inquiry ?
+                                </h2>
+                                <h2 class="subtitle clean-text has-text-centered is-5 pt-10 pb-10">Send Us An Email</h2>
+                                <div class="has-text-centered">
+                                        <a href="mailto:<%= service[0].email %>"><button type="submit" class="button button-cta btn-align primary-btn raised no-lh">Send message</button></a>
+                                    </div>
+
+                                <div class="content-wrapper">
+                                    <form>
+                                        <div class="columns">
+                                            <div class="column is-8 is-offset-2">
+                                                <div class="columns is-vcentered">
+                                                    <!-- <div class="column is-4">
+                                                        <div class="control-material is-primary">
+                                                            <input class="material-input" type="text" required>
+                                                            <span class="material-highlight"></span>
+                                                            <span class="bar"></span>
+                                                            <label>Name *</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="column is-4">
+                                                        <div class="control-material is-primary">
+                                                            <input class="material-input" type="text" required>
+                                                            <span class="material-highlight"></span>
+                                                            <span class="bar"></span>
+                                                            <label>Email *</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="column is-4">
+                                                        <div class="control-material is-primary">
+                                                            <input class="material-input" type="text" required>
+                                                            <span class="material-highlight"></span>
+                                                            <span class="bar"></span>
+                                                            <label>Company</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="control-material is-primary">
+                                                    <textarea rows="5"></textarea>
+                                                    <span class="material-highlight"></span>
+                                                    <span class="bar"></span>
+                                                    <label>Message *</label>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- /Contact form -->
+
+                        <!-- Side footer -->
+                        <footer class="footer footer-light-left">
+                            <div class="container">
+                                <div class="columns is-vcentered">
+                                    <div class="column is-6">
+                                        <div class="mb-20">
+                                            <img class="small-footer-logo" src="assets/images/logos/bulkit-logo-g.png" alt="">
+                                        </div>
+                                        <div>
+
+                                            <nav class="level is-mobile mt-20">
+                                                <div class="level-left level-social">
+                                                    <a href="#" class="level-item">
+                                                        <span class="icon">
+                                                            <i class="fa fa-facebook"></i>
+                                                        </span>
+                                                    </a>
+                                                    <a href="#" class="level-item">
+                                                        <span class="icon">
+                                                            <i class="fa fa-twitter"></i>
+                                                        </span>
+                                                    </a>
+                                                    <a href="#" class="level-item">
+                                                        <span class="icon">
+                                                            <i class="fa fa-linkedin"></i>
+                                                        </span>
+                                                    </a>
+                                                    <a href="#" class="level-item">
+                                                        <span class="icon">
+                                                            <i class="fa fa-dribbble"></i>
+                                                        </span>
+                                                    </a>
+                                                    <a href="#" class="level-item">
+                                                        <span class="icon">
+                                                            <i class="fa fa-github"></i>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                        <div class="footer-nav-right">
+                                            <a class="footer-nav-link" href="/">Home</a>
+                                            <a class="footer-nav-link" href="/features">Features</a>
+                                            <a class="footer-nav-link" href="/pricing">Pricing</a>
+                                            <a class="footer-nav-link" href="/login">Sign in</a>
+                                            <a class="footer-nav-link" href="/signup">Sign up</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </footer>
+                        <!-- /Side footer -->
+                        <!-- Side navigation -->
+                        <div class="side-navigation-menu">
+                            <!-- Categories menu -->
+                            <div class="category-menu-wrapper">
+                                <!-- Menu -->
+                                <ul class="categories">
+                                    <li class="square-logo">
+                                        <img src="/assets/images/logos/square-white.svg" alt="">
+                                    </li>
+                                    <li class="category-link is-active" data-navigation-menu="demo-pages">
+                                        <i class="sl sl-icon-layers"></i>
+                                    </li>
+                                    <li class="category-link" data-navigation-menu="components">
+                                        <i class="sl sl-icon-grid"></i>
+                                    </li>
+                                    <li class="category-link" data-navigation-menu="extras">
+                                        <i class="sl sl-icon-present"></i>
+                                    </li>
+                                </ul>
+                                <!-- Menu -->
+
+                                <ul class="author">
+                                    <li>
+                                        <!-- Theme author -->
+                                        <a href="#" target="_blank">
+                                            <img class="main-menu-author" src="/assets/images/logos/cssninja.svg" alt="">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- /Categories menu -->
+
+                            <div id="backtotop">
+                                <a href="#"></a>
+                            </div>
+                            <!-- Concatenated jQuery and plugins -->
+                            <script src="/assets/js/app.js"></script>
+
+                            <!-- Bulkit js -->
+                            <script src="/assets/js/landingv1.js"></script>
+                            <script src="/assets/js/auth.js"></script>
+                            <script src="/assets/js/main.js"></script>
+                        <% }else{ %>
+
+                            <h3 style="text-align: center;font-family:Montserrat">No Such Account Exists</h3>
+                            <p style="text-align: center"><a href="/register">Register</a></p>
+
+                        <%  } %>
+                        </body>
+<script src="/assets/libs/jquery/jquery.js"></script>
+<script>
+    $(document).ready(() => {
+        $.get('/api/service/color/<%= company %>').then(color => {
+            console.log(color);
+            var colour = color[0].headerColor;
+            $('.hero.is-theme-primary').css('backgroundColor', colour);
+            $('.section .title.section-subtitle').css('color', colour);
+            $('.button.primary-btn').css('backgroundColor', colour);
+            $('.button.primary-btn').css('borderColor', colour);
+            $('.pageloader').css('backgroundColor', colour);
+        });
+
+        $.get('/api/service/details/<%= company %>').then(detail => {
+            var detail = $(`<p class="description lead mt-4">${detail[0].details}</p>`);
+            $('#detail-container').children().remove();
+            $('#detail-container').append(detail);
+
+        });
+    });
+
+
+    $('#submitcolor').click(() => {
+        var color = $('#colorinput').val();
+        $.post('/api/service/color/<%= company %>', { color: color }).then((color => {
+            var colour = color.headerColor
+            $('.hero.is-theme-primary').css('backgroundColor', colour);
+            $('.section .title.section-subtitle').css('color', colour);
+            $('.button.primary-btn').css('backgroundColor', colour);
+            $('.button.primary-btn').css('borderColor', colour);
+            $('.pageloader').css('backgroundColor', colour);
+        }));
+    });
+</script>
+
+</html>

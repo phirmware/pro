@@ -46,6 +46,12 @@
             width: 100%;
         }
 
+        #section {
+            padding: 8px;
+            border-radius: 5px;
+            width: 100%;
+        }
+
         a.navbar-item,
         .navbar-link {
             font-weight: bold;
@@ -121,7 +127,7 @@
                                     <h2>Register</h2>
                                     <form action="/register" method="POST" enctype="multipart/form-data">
                                         <div class="control-material is-primary">
-                                            <select class="material-input dropdown " id="category" name="section" required>
+                                            <select class="material-input dropdown " id="section" name="section" required>
                                                 <option>Select Type</option>
                                                 <option value="portfolio">Portfolio</option>
                                                 <option value="Business-page">Business-Page</option>
@@ -139,7 +145,7 @@
                                             <input class="material-input" name="service" type="text" required>
                                             <span class="material-highlight"></span>
                                             <span class="bar"></span>
-                                            <label>Service</label>
+                                            <label>Service/what are you?</label>
                                         </div>
                                         <div class="control-material is-primary">
                                             <input class="material-input" name="user" type="text" required>
@@ -151,7 +157,7 @@
                                             <input class="material-input" name="email" type="email" required>
                                             <span class="material-highlight"></span>
                                             <span class="bar"></span>
-                                            <label>Company Email</label>
+                                            <label>Email</label>
                                         </div>
                                         <div class="control-material is-primary">
                                             <input class="material-input" name="phone" type="tel" required>
@@ -484,6 +490,7 @@
             var val = $('#company').val();
             checkMail(val);
         });
+
 
         function checkMail(val) {
             console.log(companys);

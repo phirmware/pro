@@ -7,10 +7,6 @@ Website core JS file
 $(document).ready(function($){
     
     "use strict";
-
-$.getJSON('/api/service').then((services)=>{
-   console.log(services);
-});
      
 
 

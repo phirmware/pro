@@ -9,7 +9,9 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
 	<link rel="icon" type="image/png" href="assets/images/favicon.png" />
 	<title>
+		<% if(service[0]){ %>
 		<%= service[0].company %>
+		<% }else{}%>
 	</title>
 	<style>
 		body {
@@ -58,11 +60,14 @@
 </head>
 
 <body>
+	<% if(service[0]){ %>
 	<div class="container mt-3">
 		<nav class="navbar navbar-expand-sm navbar-dark justify-content-center text-uppercase">
 			<a class="navbar-brand " href="#" style="font-weight: bolder;">
 				<h3>
+					<% if(service[0]){ %>
 					<%= service[0].company %>
+					<% }else{} %>
 				</h3>
 			</a>
 			<ul class="navbar-nav">
@@ -83,7 +88,7 @@
 							<div class="col-12" id="detail-container">
 
 							</div>
-							<% if(user){ %>
+							<% if(user && service[0]){ %>
 								<% if(user.username == service[0].username){ %>
 									<div class="edit">
 										<a href="/service/<%= service[0].company %>/edit">
@@ -107,10 +112,11 @@
 				</div>
 			</div>
 			<div class="col-lg-5 col-md-5 col-sm-12">
-				<h5 style="text-align: center">About Company</h5>
+				<h5 style="text-align: center">About</h5>
 				<div class="container">
 					<div class="row">
 						<div class="col-12">
+							<% if(service[0]){ %>
 							<ul class="list-group" style="margin-bottom: 2vh">
 								<li class="list-group-item">
 									<span style="font-weight: bold">OWNER : </span>
@@ -141,6 +147,7 @@
 									<%= service[0].location %>
 								</li>
 							</ul>
+							<% }else{} %>
 						</div>
 					</div>
 				</div>
@@ -149,7 +156,7 @@
 				<ul id="comment-container" class="list-group" style="margin-bottom: 2vh">
 					<h5 style="margin-top: 4vh">Comments</h5>
 				</ul>
-
+              <% if(service[0]){ %>
 				<% if(user){ %>
 					<% if(user.username == service[0].username){}else{ %>
 						<form id="comment">
@@ -170,7 +177,8 @@
 								<a href="/comment">
 									<button class="btn">make a comment</button>
 								</a>
-							<% } %>
+								<% } %>
+								<% }else{} %>
 			</div>
 			<br>
 			<br>
@@ -183,7 +191,7 @@
 			</style>
 			<div class="col-12 text-center">
 				<a href="/" class="btn" id="home">Go to Bulkit home</a>
-				<a href="/services" class="btn">Services</a>
+				<a href="/services" class="btn btn-info">Portfolios</a>
 			</div>
 		</div>
 	</div>
@@ -192,11 +200,11 @@
 		$(document).ready(() => {
 			$.get('/api/service/comments/<%= company %>').then(comments => {
 				for (var i = comments.length - 1; i > -1; i--) {
-					if(comments[i].name == '' || undefined){
+					if (comments[i].name == '' || undefined) {
 
-					} else{
-					var newComment = $(`<li class="list-group-item"><sup style="font-weight: bolder;">${comments[i].name}</sup><br>${comments[i].comment}</li>`);
-					$('#comment-container').append(newComment);
+					} else {
+						var newComment = $(`<li class="list-group-item"><sup style="font-weight: bolder;">${comments[i].name}</sup><br>${comments[i].comment}</li>`);
+						$('#comment-container').append(newComment);
 					}
 				}
 			});
@@ -229,6 +237,12 @@
 			});
 		});
 	</script>
+	<% } else{ %>
+
+		<h3 style="text-align: center">No Such Account Exists</h3>
+		<p style="text-align: center"><a href="/register">Register</a></p>
+
+	<%  } %>
 </body>
 
 </html>

@@ -12,7 +12,13 @@ var UserLogInSchema = new mongoose.Schema({
   },
   password:String,
   resetPasswordToken:String,
-  resetPasswordExpires:Date
+  resetPasswordExpires:Date,
+  verificationToken:String,
+  verificationExpires:Date,
+  verified:{
+    type:Boolean,
+    default:false
+  }
 });
 
 UserLogInSchema.plugin(passportLocalMongoose);

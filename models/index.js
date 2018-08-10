@@ -10,3 +10,4 @@ module.exports.comments = require('./comments');
 module.exports.userlogin = require('./userLogin');
 module.exports.image = require('./image');
 module.exports.details = require('./details');
+module.exports.colors = require('./color');
