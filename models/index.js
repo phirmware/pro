@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 mongoose.set('debug',true);
-mongoose.connect('mongodb://localhost/iservice');
-//mongoose.connect("mongodb://phirmware:itachi1@ds237120.mlab.com:37120/iservice");
+//mongoose.connect('mongodb://localhost/iservice');
+mongoose.connect("mongodb://phirmware:itachi1@ds237120.mlab.com:37120/iservice");
 
 mongoose.Promise = Promise;
 

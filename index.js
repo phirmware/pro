@@ -23,7 +23,7 @@ app.use(flash());
 
 //setup express session
 app.use(require('express-session')({
-  secret: '',
+  secret: 'X2YT*xeQ6a7m_v%wqArWZ_QS*?kzLRH7BfexM=tC3*ff_774$m',
   resave: false,
   saveUninitialized: false
 }));
@@ -65,7 +65,7 @@ var cloudinary = require('cloudinary');
 cloudinary.config({
   cloud_name: 'phirmware',
   api_key: 638134991796689,
-  api_secret: ''
+  api_secret: 'tAPIDGgjsVWvv_2gHZ4-8V_Qr6Q'
 });
 
 //setup passport
@@ -156,7 +156,7 @@ app.post('/signup', (req, res) => {
               service: 'Gmail',
               auth: {
                 user: 'chibuzor.ojukwu@gmail.com',
-                pass: ''
+                pass: '09036229746'
               }
             });
             var mailOptions = {
@@ -197,7 +197,7 @@ app.get('/verify/:id',(req,res)=>{
       res.redirect('/dashboard');
     }
   });
-})
+});
 
 // render pricing page
 app.get("/pricing", (req, res) => {
@@ -373,7 +373,7 @@ app.put('/edit-service/:id', isUser, upload1, (req, res) => {
         req.flash('Error', err);
         res.redirect('/edit-service/' + req.params.id);
       } else {
-        res.redirect('/service/' + req.params.id);
+        res.redirect('/portfolio/' + req.params.id);
       }
     });
   })
@@ -390,7 +390,7 @@ app.post('/forgot', (req, res) => {
       });
     },
     function (token, done) {
-      db.userlogin.findOne({ username: req.body.username }, function (err, user) {
+      db.userlogin.findOne({ email: req.body.email }, function (err, user) {
         if (!user) {
           req.flash('error', 'No account with that email address exists.');
           return res.redirect('/login');
@@ -409,7 +409,7 @@ app.post('/forgot', (req, res) => {
         service: 'Gmail',
         auth: {
           user: 'chibuzor.ojukwu@gmail.com',
-          pass: ''
+          pass: '09036229746'
         }
       });
       var mailOptions = {
@@ -476,11 +476,11 @@ app.post('/reset/:id', function (req, res) {
         service: 'Gmail',
         auth: {
           user: 'chibuzor.ojukwu@gmail.com',
-          pass: ''
+          pass: '09036229746'
         }
       });
       var mailOptions = {
-        to: user.email,
+        to: user.email ,
         from: 'chibuzor.ojukwu@gmail.com',
         subject: 'Your password has been reset',
         text: 'Your password has been reset'
