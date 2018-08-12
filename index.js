@@ -65,7 +65,7 @@ var cloudinary = require('cloudinary');
 cloudinary.config({
   cloud_name: 'phirmware',
   api_key: 638134991796689,
-  api_secret: 'tAPIDGgjsVWvv_2gHZ4-8V_Qr6Q'
+  api_secret: ''
 });
 
 //setup passport
@@ -156,7 +156,7 @@ app.post('/signup', (req, res) => {
               service: 'Gmail',
               auth: {
                 user: 'chibuzor.ojukwu@gmail.com',
-                pass: '09036229746'
+                pass: ''
               }
             });
             var mailOptions = {
@@ -211,7 +211,7 @@ app.post('/resend-validation', (req, res) => {
         service: 'Gmail',
         auth: {
           user: 'chibuzor.ojukwu@gmail.com',
-          pass: '09036229746'
+          pass: ''
         }
       });
       var mailOptions = {
