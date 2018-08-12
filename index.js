@@ -142,10 +142,10 @@ app.post('/signup', (req, res) => {
                 req.flash('Error', 'No account with that Email address exists.');
                 return res.redirect('/signup');
               }
-      
+
               user.verificationToken = token;
               user.verificationExpires = Date.now() + 3600000;  //1 hour
-      
+
               user.save(function (err) {
                 done(err, token, user);
               });
@@ -182,13 +182,65 @@ app.post('/signup', (req, res) => {
   })
 });
 
+//resend validation email
+app.post('/resend-validation', (req, res) => {
+  async.waterfall([
+    function (done) {
+      crypto.randomBytes(20, function (err, buf) {
+        var token = buf.toString('hex');
+        done(err, token);
+      });
+    },
+    function (token, done) {
+      db.userlogin.findOne({ username: req.body.username }, function (err, user) {
+        if (!user) {
+          req.flash('Error', 'No account with that Email address exists.');
+          return res.redirect('/signup');
+        }
+
+        user.verificationToken = token;
+        user.verificationExpires = Date.now() + 3600000;  //1 hour
+
+        user.save(function (err) {
+          done(err, token, user);
+        });
+      });
+    },
+    function (token, user, done) {
+      var smtpTransport = nodeMailer.createTransport({
+        service: 'Gmail',
+        auth: {
+          user: 'chibuzor.ojukwu@gmail.com',
+          pass: '09036229746'
+        }
+      });
+      var mailOptions = {
+        to: user.email,
+        from: 'chibuzor.ojukwu@gmail.com',
+        subject: 'Verify your Email Address',
+        text: `Please click on the following link or paste into your browser to verify your Email
+        http://${req.headers.host}/verify/${token} `
+      };
+      smtpTransport.sendMail(mailOptions, function (err) {
+        console.log('mail sent');
+        req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions');
+        done(err, 'done');
+      });
+    }
+  ], function (err) {
+    if (err) return res.redirect('/signup');
+    res.redirect('/dashboard');
+  });
+})
+
+
 //verify email address
-app.get('/verify/:id',(req,res)=>{
+app.get('/verify/:id', (req, res) => {
   db.userlogin.findOne({ verificationToken: req.params.id, verificationExpires: { $gt: Date.now() } }, function (err, user) {
     if (!user) {
       req.flash('error', 'Verification token is invalid or has expired.');
       res.redirect('/login');
-    } else{
+    } else {
       user.verificationExpires = undefined;
       user.verificationToken = undefined;
       user.verified = true;
@@ -340,7 +392,7 @@ app.get('/comment', isUser, (req, res) => {
 // render dashboard page
 app.get('/dashboard', isUser, (req, res) => {
   db.user.find({ username: req.user.username }).then(user => {
-    res.render('dashboard', { user: user, presentUser: req.user.username , error: req.flash("Error"), success: req.flash('success')});
+    res.render('dashboard', { user: user, presentUser: req.user.username, error: req.flash("Error"), success: req.flash('success') });
   });
 });
 
@@ -480,7 +532,7 @@ app.post('/reset/:id', function (req, res) {
         }
       });
       var mailOptions = {
-        to: user.email ,
+        to: user.email,
         from: 'chibuzor.ojukwu@gmail.com',
         subject: 'Your password has been reset',
         text: 'Your password has been reset'

@@ -51,6 +51,9 @@
       font-size: 20px;
       text-align: center;
     }
+    #resend-input{
+      display: none;
+    }
 
     @media(min-width:1000px) {
       #small-nav {
@@ -109,7 +112,7 @@
         </h4>
         <% } %>
 
-          <div class="row">
+          <div class="row" id="body">
             <h4 class="center">Registered Accounts</h4>
 
             <% for(var i = 0;i < user.length;i++){ %>
@@ -148,7 +151,7 @@
                 if (res.response == true) {
                   console.log('Verified');
                 } else {
-                  $('body').children().remove();
+                  $('#body').children().remove();
                   var verify = $(`
                   <% if(error && error.length > 0){ %>
     <h4 class="alert-error">
@@ -161,12 +164,25 @@
         </h4>
         <% } %>
                   <h3 style="text-align:center">Pls, Verify your email to see dashboard </h3>
+                  <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form action="/resend-validation" method="post">
+                   <div class="form-group">
+                       <input type="text" class="form-control" name="username" value="<%= presentUser %>" id="resend-input">
+                       <br>
+                       <button class="btn btn-primary">Resend</button>
+                   </div>
+                </form>
+            </div>
+        </div>
+    </div>
                   `)
-                  $('body').append(verify);
+                  $('#body').append(verify);
                 }
               });
-            });
-          </script>
+            });     
+           </script>
 </body>
 
 </html>
