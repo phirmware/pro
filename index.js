@@ -173,7 +173,7 @@ app.post('/signup', (req, res) => {
             });
           }
         ], function (err) {
-          if (err) return res.send(err);
+          if (err) return res.redirect('/signup');
           res.redirect('/dashboard');
         });
         // res.redirect('/register');
