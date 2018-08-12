@@ -1,7 +1,13 @@
+var staticCache = 'servgo-static-v2';
+
 self.addEventListener('install', (event) => {
     var urls = [
         '/',
         '/features',
+        '/pricing',
+        '/login',
+        '/services',
+        '/signup',
         '/assets/images/logos/bulkit-logo-g.png',
         '/assets/images/logos/bulkit-green.svg',
         '/assets/images/logos/bulkit-white.svg',
@@ -16,18 +22,32 @@ self.addEventListener('install', (event) => {
     ];
 
     event.waitUntil(
-        caches.open('servgo-static-v1').then(cache => {
+        caches.open(staticCache).then(cache => {
             return cache.addAll(urls);
         })
     )
-})
+});
+
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then(cacheNames => {
+            return Promise.all(
+                cacheNames.filter(cache => {
+                    return cache.startsWith('servgo') && cache != staticCache;
+                }).map(cacheName => {
+                    return caches.delete(cacheName)
+                })
+            )
+        })
+    )
+});
 
 
 self.addEventListener('fetch', function (event) {
     event.respondWith(
         caches.match(event.request).then(response => {
-           if(response) return response;
-           return fetch(event.request);
+            if (response) return response;
+            return fetch(event.request);
         })
     )
 });
